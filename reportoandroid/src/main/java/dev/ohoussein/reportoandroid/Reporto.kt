@@ -1,10 +1,12 @@
 package dev.ohoussein.reportoandroid
 
 import android.app.Activity
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import dev.ohoussein.reportoandroid.activity.ReportActivity
 import dev.ohoussein.reportoandroid.module.DatabaseModule
@@ -31,9 +33,16 @@ class Reporto private constructor(
     //TODO delete reports
     //TODO cleanup
 
+    val appName: String
+
     init {
         if (showNotification)
             createReportNotification(context)
+
+        val applicationInfo = context.applicationInfo
+        val stringId = applicationInfo.labelRes
+        appName =
+            if (stringId == 0) applicationInfo.nonLocalizedLabel?.toString() ?: "" else context.getString(stringId)
     }
 
     fun report(fromActivity: Activity, title: String? = null, message: String? = null, then: (() -> Unit)? = null) {
@@ -44,7 +53,7 @@ class Reporto private constructor(
         }
         val messageTitle = title ?: fromActivity.getString(
             R.string.report_message_title,
-            fromActivity.getString(R.string.app_name),
+            appName,
             DateFormat.getDateTimeInstance().format(Date())
         )
 
@@ -61,7 +70,7 @@ class Reporto private constructor(
         val pendingIntent = PendingIntent.getActivity(context, 1, intent, 0)
 
         val builder = NotificationCompat.Builder(context, "Report")
-            .setContentTitle(context.getString(R.string.app_name))
+            .setContentTitle(appName)
             .setContentText(context.getString(R.string.create_report))
             .setSmallIcon(R.drawable.ic_report)
             .setPriority(NotificationCompat.PRIORITY_MIN)
@@ -70,6 +79,12 @@ class Reporto private constructor(
 
         val notifManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel("Report", "Reporto", NotificationManager.IMPORTANCE_LOW)
+                .apply {
+                    notifManager.createNotificationChannel(this)
+                }
+        }
         notifManager.notify(1991, builder.build())
     }
 

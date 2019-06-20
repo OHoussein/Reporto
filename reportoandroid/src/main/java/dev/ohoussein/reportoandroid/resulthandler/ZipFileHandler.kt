@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import dev.ohoussein.reportoandroid.R
+import dev.ohoussein.reportoandroid.Reporto
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -21,7 +22,10 @@ open class ZipFileHandler : ResultHandler {
 
     override fun handleResultFiles(activity: Activity, sourceDirFile: File, messageTitle: String?, message: String?) {
 
-        val zipName = "${activity.getString(R.string.app_name)}_report_${DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date())}.zip"
+        val zipName = "${Reporto.INSTANCE.appName}_report_${DateFormat.getDateTimeInstance(
+            DateFormat.SHORT,
+            DateFormat.SHORT
+        ).format(Date())}.zip"
             .replace(Regex("""[/\s+:]"""), "_")
         val destDir = File(activity.cacheDir.path + "/zip_report/zip_${System.currentTimeMillis()}")
         val destFile = File(destDir, zipName)
