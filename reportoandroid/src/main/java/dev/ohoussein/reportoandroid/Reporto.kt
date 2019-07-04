@@ -29,9 +29,10 @@ class Reporto private constructor(
 
     companion object {
         lateinit var INSTANCE: Reporto
+            private set
+
+        private const val NOTIF_ID = 1991
     }
-    //TODO delete reports
-    //TODO cleanup
 
     val appName: String
 
@@ -45,20 +46,25 @@ class Reporto private constructor(
             if (stringId == 0) applicationInfo.nonLocalizedLabel?.toString() ?: "" else context.getString(stringId)
     }
 
-    fun report(fromActivity: Activity, title: String? = null, message: String? = null, then: (() -> Unit)? = null) {
+    fun report(
+        fromActivity: Activity,
+        reportTitle: String? = null,
+        message: String? = null,
+        then: (() -> Unit)? = null
+    ) {
         val dir = File(fromActivity.cacheDir, System.currentTimeMillis().toString())
         dir.mkdirs()
         modules.forEach {
             it.collect(fromActivity, dir)
         }
-        val messageTitle = title ?: fromActivity.getString(
+        val messageTitle = reportTitle ?: fromActivity.getString(
             R.string.report_message_title,
             appName,
             DateFormat.getDateTimeInstance().format(Date())
         )
 
         File(dir, "message.txt").apply {
-            writeText("$messageTitle\n$message")
+            writeText("$messageTitle\n\n$message")
         }
 
         resultHandler.handleResultFiles(fromActivity, dir, messageTitle, message)
@@ -85,7 +91,7 @@ class Reporto private constructor(
                     notifManager.createNotificationChannel(this)
                 }
         }
-        notifManager.notify(1991, builder.build())
+        notifManager.notify(NOTIF_ID, builder.build())
     }
 
     class Factory {
