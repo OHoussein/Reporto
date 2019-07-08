@@ -14,6 +14,9 @@ import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
+/**
+ * Create a zip file that contains all the report files and share it via an intent
+ */
 open class ZipFileHandler : ResultHandler {
 
     companion object {

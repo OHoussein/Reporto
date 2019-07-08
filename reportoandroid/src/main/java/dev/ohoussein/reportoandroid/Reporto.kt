@@ -46,6 +46,13 @@ class Reporto private constructor(
             if (stringId == 0) applicationInfo.nonLocalizedLabel?.toString() ?: "" else context.getString(stringId)
     }
 
+    /**
+     * Create a new report
+     * @param fromActivity the caller activity
+     * @param reportTitle an optional report title
+     * @param message an optional message
+     * @param then executed when the report is done
+     */
     fun report(
         fromActivity: Activity,
         reportTitle: String? = null,
@@ -94,18 +101,39 @@ class Reporto private constructor(
         notifManager.notify(NOTIF_ID, builder.build())
     }
 
-    class Factory {
+    class Builder {
 
         private val modules = mutableListOf<ReportoModule>()
-        var showNotification = true
-        var resultHandler: ResultHandler = ZipFileHandler()
+        private var showNotification = true
+        private var resultHandler: ResultHandler = ZipFileHandler()
 
+        /**
+         * Add add the last device's log
+         * @see LogcatModule.LogParams
+         */
         fun addLogcatModule(params: LogcatModule.LogParams = LogcatModule.LogParams()) =
-            modules.add(LogcatModule(params))
+            apply { modules.add(LogcatModule(params)) }
 
-        fun addDatabaseModule() = modules.add(DatabaseModule())
+        /**
+         * Add all the app databases files
+         */
+        fun addDatabaseModule() = apply { modules.add(DatabaseModule()) }
 
-        fun addPreferencesModule() = modules.add(PreferencesModule())
+        /**
+         * Add the preferences in the report in their xml format
+         */
+        fun addPreferencesModule() = apply { modules.add(PreferencesModule()) }
+
+        /**
+         * Customize the resultHandler which handle the result report data.
+         * By default, Reporto use the [ZipFileHandler]
+         */
+        fun resultHandler(handler: ResultHandler) = apply { resultHandler = handler }
+
+        /**
+         * when set to true true, a notification bar is added that create a report when click on
+         */
+        fun showNotification(show: Boolean) = apply { showNotification = show }
 
         fun create(context: Context): Reporto {
             INSTANCE = Reporto(context.applicationContext, modules, resultHandler, showNotification)

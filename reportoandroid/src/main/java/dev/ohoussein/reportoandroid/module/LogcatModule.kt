@@ -7,6 +7,11 @@ import java.io.IOException
 
 class LogcatModule(private val params: LogParams) : ReportoModule {
 
+    /**
+     * @param onlyAppLog to filter the log by the app's pid
+     * @param bufferName the log buffer [https://developer.android.com/studio/command-line/logcat#alternativeBuffers]
+     * @param maxLines the max lines on the log file
+     */
     data class LogParams(val onlyAppLog: Boolean = false, val bufferName: String? = null, val maxLines : Int = 500)
 
     companion object {
