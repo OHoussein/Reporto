@@ -28,7 +28,8 @@ class Reporto private constructor(
 ) {
 
     companion object {
-        lateinit var INSTANCE: Reporto
+        @Volatile
+        lateinit var instance: Reporto
             private set
 
         private const val NOTIF_ID = 1991
@@ -135,9 +136,9 @@ class Reporto private constructor(
          */
         fun showNotification(show: Boolean) = apply { showNotification = show }
 
-        fun create(context: Context): Reporto {
-            INSTANCE = Reporto(context.applicationContext, modules, resultHandler, showNotification)
-            return INSTANCE
-        }
+        fun create(context: Context) = Reporto(context.applicationContext, modules, resultHandler, showNotification)
+            .apply {
+                instance = this
+            }
     }
 }

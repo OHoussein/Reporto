@@ -25,7 +25,7 @@ open class ZipFileHandler : ResultHandler {
 
     override fun handleResultFiles(activity: Activity, sourceDirFile: File, messageTitle: String?, message: String?) {
 
-        val zipName = "${Reporto.INSTANCE.appName}_report_${DateFormat.getDateTimeInstance(
+        val zipName = "${Reporto.instance.appName}_report_${DateFormat.getDateTimeInstance(
             DateFormat.SHORT,
             DateFormat.SHORT
         ).format(Date())}.zip"

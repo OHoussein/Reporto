@@ -28,7 +28,7 @@ class ReportActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_send -> Reporto.INSTANCE.report(
+            R.id.action_send -> Reporto.instance.report(
                 fromActivity = this,
                 message = messageInput.text.toString()) { finish() }
             android.R.id.home -> finish()

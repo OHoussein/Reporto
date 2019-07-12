@@ -8,11 +8,13 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Reporto.Builder()
+        Reporto
+            .Builder()
             .addLogcatModule()
             .addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))
             .addPreferencesModule()
             .addDatabaseModule()
+            .showNotification(true)
             .create(this)
     }
 }
