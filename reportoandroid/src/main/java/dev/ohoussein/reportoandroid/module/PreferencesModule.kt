@@ -7,7 +7,8 @@ class PreferencesModule : ReportoModule {
     override fun collect(context: Context, parentDir: File): File {
         val srcDir = File(context.applicationInfo.dataDir, "shared_prefs")
         val dstDir = File(parentDir, "shared_prefs")
-        srcDir.copyRecursively(dstDir, true)
+        if (srcDir.exists())
+            srcDir.copyRecursively(dstDir, true)
         return srcDir
     }
 }
