@@ -38,13 +38,12 @@ class Reporto private constructor(
     val appName: String
 
     init {
-        if (showNotification)
-            createReportNotification(context)
-
         val applicationInfo = context.applicationInfo
         val stringId = applicationInfo.labelRes
         appName =
             if (stringId == 0) applicationInfo.nonLocalizedLabel?.toString() ?: "" else context.getString(stringId)
+        if (showNotification)
+            createReportNotification(context)
     }
 
     /**
