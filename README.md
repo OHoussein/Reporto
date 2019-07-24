@@ -1,10 +1,35 @@
-An android report library that allows to collect data like logcat, preferences, databases and then share it,
-by default it creates a zip file that can be shared via email for example.
+An android report library that allows to collect the app data like logcat, preferences, databases and then share it.
+With this library, when the QA or even the developer detect and issue/bug, he can provide more information about it that helps to fix it, so we can avoid the "unable to reproduce" state
+
+By default it creates a zip file that can be shared via email for example.
+
 
 Please be sure to use this library only on the **development mode** if you won't violate your users' privacy.
 
 
 ## How to use
+
+Add this to your app's build.gradle
+```gradle
+implementation 'com.github.ohoussein:reportoandroid:1.0.1'
+```
+
+and in your manifest file, under the application tag, add
+
+```xml
+<provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="dev.ohoussein.reportoandroid.provider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+
+    <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/reporto_file_provider" />
+
+</provider>
+```
+This is necessary when you use the default result handler (the ZipResultHandler) in order to share the zip file.
 
 To use all the prebuilt module, you have to create the Reporto in your Application class like this
 ```kotlin
@@ -17,11 +42,11 @@ To use all the prebuilt module, you have to create the Reporto in your Applicati
             .create(this)
 ```
 
-`showNotification(true)` : set to true if you want add a notification that create a report when click on
-`addDatabaseModule()` : for add the databases in the report
-`addPreferencesModule()` : for add the preferences in their xml format
-`addLogcatModule()` : add the last device's log
-`addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))` : maybe you want the events logs like the activities transition
+* `showNotification(true)` : set to true if you want add a notification that create a report when click on
+* `addDatabaseModule()` : for add the databases in the report
+* `addPreferencesModule()` : for add the preferences in their xml format
+* `addLogcatModule()` : add the last device's log
+* `addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))` : maybe you want the events logs like the activities transition
 
 The Reports can be customized, for example you can add a screenshot or a http interceptor to your reports data
 
