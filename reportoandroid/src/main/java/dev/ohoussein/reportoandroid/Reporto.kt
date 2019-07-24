@@ -59,6 +59,7 @@ class Reporto private constructor(
         message: String? = null,
         then: (() -> Unit)? = null
     ) {
+        //TODO Should be async
         val dir = File(fromActivity.cacheDir, System.currentTimeMillis().toString())
         dir.mkdirs()
         modules.forEach {
