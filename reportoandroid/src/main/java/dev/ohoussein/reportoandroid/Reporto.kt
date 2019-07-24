@@ -88,7 +88,6 @@ class Reporto private constructor(
             .setSmallIcon(R.drawable.ic_report)
             .setPriority(NotificationCompat.PRIORITY_MIN)
             .setContentIntent(pendingIntent)
-            .setOngoing(true)
 
         val notifManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
