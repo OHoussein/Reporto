@@ -38,7 +38,7 @@ open class ZipFileHandler : ResultHandler {
         shareZipFile(activity, destFile, messageTitle, message)
     }
 
-    protected fun shareZipFile(activity: Activity, zipFile: File, messageTitle: String?, message: String?) {
+    protected open fun shareZipFile(activity: Activity, zipFile: File, messageTitle: String?, message: String?) {
         val uri = FileProvider.getUriForFile(activity, FILE_PROVIDER_AUTHORITY, zipFile)
 
         ShareCompat.IntentBuilder.from(activity)

@@ -4,7 +4,6 @@
     <string name="create_report">Send a report</string>
     <string name="additional_comment">Additional comment</string>
     <string name="send">Send</string>
-    <string name="show_previous_reports">Previous reports</string>
     <string name="share_report_file_title">Share report file</string>
     <string name="report_message_title">[%1$s] New report created at %2$s</string>
 </resources>

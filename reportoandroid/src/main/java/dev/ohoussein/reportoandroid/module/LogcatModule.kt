@@ -19,7 +19,7 @@ class LogcatModule(private val params: LogParams) : ReportoModule {
         const val BUFFER_RADIOLOG = "radio"
     }
 
-    private val logcatArguments = listOf("-d", "-t${params.maxLines}", "-v", "time");
+    private val logcatArguments = listOf("-d", "-t${params.maxLines}", "-v", "time")
 
     @Throws(IOException::class)
     override fun collect(context: Context, parentDir: File): File {

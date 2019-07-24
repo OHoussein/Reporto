@@ -27,7 +27,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, null
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        Log.d(TAG, "Creating database tables");
+        Log.d(TAG, "Creating database tables")
         createTableTask(db)
         createTableUser(db)
     }
