@@ -125,6 +125,11 @@ class Reporto private constructor(
         fun addPreferencesModule() = apply { modules.add(PreferencesModule()) }
 
         /**
+         * Add a custom module
+         */
+        fun addModule(module: ReportoModule) = apply { modules.add(module) }
+
+        /**
          * Customize the resultHandler which handle the result report data.
          * By default, Reporto use the [ZipFileHandler]
          */

@@ -4,14 +4,14 @@ With this library, when the QA or even the developer detect and issue/bug, he ca
 By default it creates a zip file that can be shared via email for example.
 
 
-Please be sure to use this library only on the **development mode** if you won't violate your users' privacy.
+Please be sure to use this library only on the **development mode** if you dont want violate your users' privacy.
 
 
 ## How to use
 
 Add this to your app's build.gradle
 ```gradle
-implementation 'com.github.ohoussein:reportoandroid:1.0.1'
+implementation 'com.github.ohoussein:reportoandroid:1.0.2'
 ```
 
 and in your manifest file, under the application tag, add
@@ -47,6 +47,7 @@ To use all the prebuilt module, you have to create the Reporto in your Applicati
 * `addPreferencesModule()` : for add the preferences in their xml format
 * `addLogcatModule()` : add the last device's log
 * `addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))` : maybe you want the events logs like the activities transition
+* `addModule(myModule)` : to add custom report data
 
 The Reports can be customized, for example you can add a screenshot or a http interceptor to your reports data
 

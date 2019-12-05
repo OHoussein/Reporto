@@ -40,7 +40,7 @@ publish {
     userOrg = 'ohoussein'
     groupId = 'com.github.ohoussein'
     artifactId = 'reportoandroid'
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     website = 'https://github.com/OHoussein/ReportoAndroid'
     desc = "An android report library that allows to collect the app data like logcat, preferences, databases and then share it."
 }
