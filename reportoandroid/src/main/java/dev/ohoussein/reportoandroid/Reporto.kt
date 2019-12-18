@@ -7,6 +7,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import dev.ohoussein.reportoandroid.activity.ReportActivity
 import dev.ohoussein.reportoandroid.module.DatabaseModule
@@ -24,7 +26,7 @@ class Reporto private constructor(
     context: Context,
     private val modules: List<ReportoModule>,
     private val resultHandler: ResultHandler,
-    showNotification: Boolean
+    notifParam: NotifParam?
 ) {
 
     companion object {
@@ -42,8 +44,9 @@ class Reporto private constructor(
         val stringId = applicationInfo.labelRes
         appName =
             if (stringId == 0) applicationInfo.nonLocalizedLabel?.toString() ?: "" else context.getString(stringId)
-        if (showNotification)
-            createReportNotification(context)
+        notifParam?.let {
+            createReportNotification(context, it)
+        }
     }
 
     /**
@@ -79,15 +82,18 @@ class Reporto private constructor(
         then?.invoke()
     }
 
-    private fun createReportNotification(context: Context) {
+    private fun createReportNotification(
+        context: Context,
+        notifParam: NotifParam
+    ) {
         val intent = Intent(context, ReportActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 1, intent, 0)
 
         val builder = NotificationCompat.Builder(context, "Report")
             .setContentTitle(appName)
-            .setContentText(context.getString(R.string.create_report))
-            .setSmallIcon(R.drawable.ic_report)
-            .setPriority(NotificationCompat.PRIORITY_MIN)
+            .setContentText(context.getString(notifParam.contentStrRes))
+            .setSmallIcon(notifParam.icon)
+            .setPriority(notifParam.priority)
             .setContentIntent(pendingIntent)
 
         val notifManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -104,7 +110,7 @@ class Reporto private constructor(
     class Builder {
 
         private val modules = mutableListOf<ReportoModule>()
-        private var showNotification = true
+        private var notifParam : NotifParam? = null
         private var resultHandler: ResultHandler = ZipFileHandler()
 
         /**
@@ -138,11 +144,18 @@ class Reporto private constructor(
         /**
          * when set to true true, a notification bar is added that create a report when click on
          */
-        fun showNotification(show: Boolean) = apply { showNotification = show }
+        fun showNotification(param : NotifParam = NotifParam()) = apply { notifParam = param }
 
-        fun create(context: Context) = Reporto(context.applicationContext, modules, resultHandler, showNotification)
+        fun create(context: Context) = Reporto(context.applicationContext, modules, resultHandler, notifParam)
             .apply {
                 instance = this
             }
     }
+
+    data class NotifParam (
+        @StringRes val contentStrRes: Int = R.string.create_report,
+        @DrawableRes val icon: Int = R.drawable.ic_report,
+        val priority: Int = NotificationCompat.PRIORITY_MIN,
+        val id : Long = 1991
+    )
 }

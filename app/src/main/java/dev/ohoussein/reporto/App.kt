@@ -14,7 +14,7 @@ class App : Application() {
             .addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))
             .addPreferencesModule()
             .addDatabaseModule()
-            .showNotification(true)
+            .showNotification()
             .create(this)
     }
 }

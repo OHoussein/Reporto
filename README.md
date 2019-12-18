@@ -11,7 +11,7 @@ Please be sure to use this library only on the **development mode** if you dont 
 
 Add this to your app's build.gradle
 ```gradle
-implementation 'com.github.ohoussein:reportoandroid:1.0.2'
+implementation 'com.github.ohoussein:reportoandroid:1.0.3'
 ```
 
 and in your manifest file, under the application tag, add
@@ -38,11 +38,11 @@ To use all the prebuilt module, you have to create the Reporto in your Applicati
             .addLogcatModule(LogcatModule.LogParams(bufferName = LogcatModule.BUFFER_EVENTSLOG))
             .addPreferencesModule()
             .addDatabaseModule()
-            .showNotification(true)
+            .showNotification()
             .create(this)
 ```
 
-* `showNotification(true)` : set to true if you want add a notification that create a report when click on
+* `showNotification()` : add a notification that create a report when click on
 * `addDatabaseModule()` : for add the databases in the report
 * `addPreferencesModule()` : for add the preferences in their xml format
 * `addLogcatModule()` : add the last device's log
