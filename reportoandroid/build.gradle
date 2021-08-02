@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 28
@@ -33,13 +32,4 @@ dependencies {
 }
 repositories {
     mavenCentral()
-}
-
-publish {
-    userOrg = 'ohoussein'
-    groupId = 'com.github.ohoussein'
-    artifactId = 'reportoandroid'
-    publishVersion = '1.0.3'
-    website = 'https://github.com/OHoussein/ReportoAndroid'
-    desc = "An android report library that allows to collect the app data like logcat, preferences, databases and then share it."
 }
