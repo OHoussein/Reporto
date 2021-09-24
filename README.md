@@ -1,24 +1,37 @@
-An android report library that allows to collect the app data like logcat, preferences, databases and then share it.
-With this library, when the QA or even the developer detect and issue/bug, he can provide more information about it that helps to fix it, so we can avoid the "unable to reproduce" state
+An android report library that allows to collect the app data like logcat, preferences, databases
+and then share it. With this library, when the QA or even the developer detect and issue/bug, he can
+provide more information about it that helps to fix it, so we can avoid the "unable to reproduce"
+state
 
 By default it creates a zip file that can be shared via email for example.
 
-
-Please be sure to use this library only on the **development mode** if you dont want violate your users' privacy.
-
+Please be sure to use this library only on the **development mode** if you dont want violate your
+users' privacy.
 
 ## How to use
 
-Add this to your app's build.gradle
+Add maven central to your project build gradle
+
 ```gradle
-implementation 'com.github.ohoussein:reportoandroid:1.0.3'
+allprojects {
+    repositories {
+        //...
+        mavenCentral()
+    }
+}
+```
+
+Add this to your module build.gradle
+
+```gradle
+implementation 'io.github.ohoussein:reportoandroid:1.0.4'
 ```
 
 and in your manifest file, under the application tag, add
 
 ```xml
-<provider
-    android:name="androidx.core.content.FileProvider"
+
+<provider android:name="androidx.core.content.FileProvider"
     android:authorities="dev.ohoussein.reportoandroid.provider"
     android:exported="false"
     android:grantUriPermissions="true">
