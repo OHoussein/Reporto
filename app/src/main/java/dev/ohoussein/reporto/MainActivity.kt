@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_main.*
+import android.view.View
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,11 +21,11 @@ class MainActivity : AppCompatActivity() {
 
         val dbHelper = DatabaseHelper(this)
 
-        btnFillDb.setOnClickListener {
+        findViewById<View>(R.id.btnFillDb).setOnClickListener {
             insertFakeDataToDb(dbHelper.writableDatabase)
         }
 
-        btnFillPrefs.setOnClickListener {
+        findViewById<View>(R.id.btnFillPrefs).setOnClickListener {
             insertFakeDataToPrefs()
         }
     }

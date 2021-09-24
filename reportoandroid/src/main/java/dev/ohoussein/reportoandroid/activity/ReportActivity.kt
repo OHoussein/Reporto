@@ -3,17 +3,20 @@ package dev.ohoussein.reportoandroid.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import dev.ohoussein.reportoandroid.R
 import dev.ohoussein.reportoandroid.Reporto
-import kotlinx.android.synthetic.main.activity_report.*
-
 
 class ReportActivity : AppCompatActivity() {
+
+    private val messageInput: TextView by lazy { findViewById<TextView>(R.id.messageInput) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
+        val appToolbar = findViewById<Toolbar>(R.id.appToolbar)
         setSupportActionBar(appToolbar)
         supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
